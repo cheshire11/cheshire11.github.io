@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Handbags",
+    "folder": "handbags",
+    "cover": "cover.jpg",
+    "projects": [
+      { "name": "Handbag 2024", "folder": "handbag_2024", "images": ["handbag_2024.jpg"] }
+    ]
+  },
+  {
+    "name": "Home Goods",
+    "folder": "home_goods",
+    "cover": "cover.jpg",
+    "projects": [
+      { "name": "Triceratops", "folder": "triceratops", "images": ["triceratops.jpg"] }
+    ]
+  },
+  {
+    "name": "Personal Items",
+    "folder": "personal_items",
+    "cover": "cover.jpg",
+    "projects": [
+      { "name": "Red Belt", "folder": "red_belt", "images": ["red_belt_2024.jpg"] }
+    ]
+  }
+]

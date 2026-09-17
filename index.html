@@ -1,49 +1,355 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Gekkota Leather</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta name="generator" content="Geany 1.33" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gekkota Leather</title>
+  <style>
+    /* ---------- Base styles ---------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #faf8f5;
+      font-family: "Palatino Linotype", "Sylfaen", serif;
+      color: #333;
+    }
+
+    /* ---------- Header / hero area ---------- */
+    .header {
+      text-align: center;
+      padding: 30px 20px 10px;
+    }
+
+    .header h1 {
+      font-family: "Colonna MT", serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);   /* scales with screen width */
+      font-weight: bold;
+      color: #333;
+    }
+
+    .header img.logo {
+      max-width: 350px;
+      height: auto;
+      margin: 10px 0;
+    }
+
+    .header .tagline {
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 8px;
+      line-height: 1.5;
+    }
+
+    .header .contact {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .header .contact a { color: #b8600a; }
+
+    /* ---------- Grid of cards (used for categories AND projects) ---------- */
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px 40px 40px;
+    }
+
+    .card {
+      cursor: pointer;
+      width: 320px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover { transform: scale(1.03); }
+
+    .card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;            /* crops to fill the box evenly */
+      border: 4px solid orange;
+      border-radius: 4px;
+    }
+
+    .card .label {
+      margin-top: 8px;
+      font-size: 1.3rem;
+      font-family: "Colonna MT", "Garamond", serif;
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* ---------- Lightbox overlay ---------- */
+    .overlay {
+      display: none;                /* hidden by default */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay.active { display: flex; }
+
+    /* Close button */
+    .overlay .close-btn {
+      position: absolute;
+      top: 18px; right: 28px;
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1010;
+      line-height: 1;
+    }
+
+    /* Back button (returns from project gallery to category view) */
+    .overlay .back-btn {
+      position: absolute;
+      top: 18px; left: 28px;
+      font-size: 1.4rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1010;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      padding: 4px 14px;
+    }
+
+    .overlay .back-btn:hover { background: rgba(255,255,255,0.3); }
+
+    /* Title inside overlay */
+    .overlay .overlay-title {
+      color: #fff;
+      font-family: "Colonna MT", serif;
+      font-size: 2rem;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    /* Project grid inside category overlay */
+    .overlay .overlay-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      max-width: 90vw;
+      overflow-y: auto;
+      max-height: 70vh;
+      padding: 10px;
+    }
+
+    .overlay .overlay-grid .card img {
+      border-color: #c87f30;
+    }
+
+    .overlay .overlay-grid .card .label {
+      color: #eee;
+    }
+
+    /* ---------- Photo gallery lightbox (layer 3) ---------- */
+    .gallery-view {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 90vw;
+      max-height: 80vh;
+    }
+
+    .gallery-view .gallery-img {
+      max-width: 70vw;
+      max-height: 75vh;
+      object-fit: contain;
+      border: 3px solid #c87f30;
+      border-radius: 4px;
+    }
+
+    /* Arrow buttons for navigating photos */
+    .gallery-view .arrow {
+      font-size: 3rem;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px;
+      flex-shrink: 0;
+    }
+
+    .gallery-view .arrow:hover { color: orange; }
+
+    .gallery-counter {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+  </style>
 </head>
-
-<style>
-body {
-	background: rgba(255, 255, 255, .4);
-	background-size: cover;
-	background-repeat: no-repeat;
-
-    font-family: "Colonna MT", "Garamond", "Palatino Linotype", serif;
-    }
-    
-h1 {
-	text-align: center;
-	font-size: xxx-large;
-	font-family: "Colonna MT", serif;
-	line-height: 70%;
-    }
-    
-div {
-	text-align: center;
-	font-size: large;
-	}    
-</style>
-
 <body>
 
-<div style="padding-top: 30px; font-family: 'Colonna MT', serif; font-weight: bold; font-size: 600%">Gekkota Leather</div>
+  <!-- ===== Header ===== -->
+  <div class="header">
+    <h1>Gekkota Leather</h1>
+    <img class="logo" src="gecko_outline_sm.jpg" alt="Hand Drawn Lizard">
+    <p class="tagline">
+      Handmade, bespoke, small leather goods. Dyed, tooled, and hand stitched.<br>
+      Handbags, wallets, belts made of vegetable tanned leather.
+    </p>
+    <p class="contact">
+      Currently accepting commissions.
+      <a href="mailto:gekkotaleather@gmail.com">Inquiries are welcome.</a>
+      Email gekkotaleather@gmail.com.
+    </p>
+  </div>
 
-<div><img src="gecko_outline_sm.jpg" height="180px" width="350px" alt="Hand Drawn Lizard"></div>
-	
-<div style="font-family: 'Palatino Linotype', 'Sylfaen', serif; font-size: x-large">Handmade, bespoke, small leather goods. Dyed, tooled, and hand stitched.<br>Handbags, wallets, belts made of vegetable tanned leather.
-<br>Currently accepting commissions. <a href = "mailto:gekkotaleather@gmail.com">Inquiries are welcome.</a>  Email gekkotaleather@gmail.com.
-</div>
-	
-<div style="padding-top: 40px;"><img style="border:4px solid orange;" src="triceratops.jpg" height="320px" width="400px" alt="Triceratops Leather Figure">
-	<img style="border:4px solid orange;" src="handbag_2024.jpg" height="320px" width="400px" alt="Leather Handbag">
-	<img style="border:4px solid orange;" src="red_belt_2024.jpg" height="320px" width="400px" alt="Red Leather Belt"></div>
-	
+  <!-- ===== Category grid (populated by JavaScript) ===== -->
+  <div class="grid" id="categoryGrid"></div>
+
+  <!-- ===== Overlay for category → project list (layer 2) ===== -->
+  <div class="overlay" id="categoryOverlay">
+    <span class="close-btn" id="closeCategoryOverlay">&times;</span>
+    <div class="overlay-title" id="categoryOverlayTitle"></div>
+    <div class="overlay-grid" id="projectGrid"></div>
+  </div>
+
+  <!-- ===== Overlay for project → photo gallery (layer 3) ===== -->
+  <div class="overlay" id="galleryOverlay">
+    <span class="close-btn" id="closeGalleryOverlay">&times;</span>
+    <span class="back-btn" id="backToCategory">&#8592; Back</span>
+    <div class="overlay-title" id="galleryTitle"></div>
+    <div class="gallery-view">
+      <span class="arrow" id="prevPhoto">&#10094;</span>
+      <img class="gallery-img" id="galleryImg" src="" alt="">
+      <span class="arrow" id="nextPhoto">&#10095;</span>
+    </div>
+    <div class="gallery-counter" id="galleryCounter"></div>
+  </div>
+
+  <script>
+    /* ----------------------------------------------------------------
+       All data comes from projects.json.
+       Each project subfolder lists its images in the JSON config.
+       When adding a new project, edit projects.json and drop images
+       into the matching folder — no need to touch this HTML file.
+    ---------------------------------------------------------------- */
+
+    let data = [];          // loaded from projects.json
+    let currentPhotos = []; // photos in the open gallery
+    let currentIndex = 0;   // which photo is showing
+
+    /* ---------- Load config and build the category grid ---------- */
+    fetch("projects.json")
+      .then(r => r.json())
+      .then(categories => {
+        data = categories;
+        const grid = document.getElementById("categoryGrid");
+
+        categories.forEach((cat, i) => {
+          // Build a card for each category
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML =
+            '<img src="projects/' + cat.folder + '/' + cat.cover + '" alt="' + cat.name + '">' +
+            '<div class="label">' + cat.name + '</div>';
+          // When clicked, open the category overlay showing its projects
+          card.addEventListener("click", () => openCategory(i));
+          grid.appendChild(card);
+        });
+      });
+
+    /* ---------- Layer 2: show projects within a category ---------- */
+    function openCategory(catIndex) {
+      const cat = data[catIndex];
+      document.getElementById("categoryOverlayTitle").textContent = cat.name;
+      const grid = document.getElementById("projectGrid");
+      grid.innerHTML = "";
+
+      cat.projects.forEach(proj => {
+        // Each project shows its first image as the cover
+        const images = proj.images || listDefaultImages(cat.folder, proj.folder);
+        const coverSrc = "projects/" + cat.folder + "/" + proj.folder + "/" + images[0];
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML =
+          '<img src="' + coverSrc + '" alt="' + proj.name + '">' +
+          '<div class="label">' + proj.name + '</div>';
+        card.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openGallery(cat, proj);
+        });
+        grid.appendChild(card);
+      });
+
+      document.getElementById("categoryOverlay").classList.add("active");
+    }
+
+    /* ---------- Layer 3: photo gallery for a single project ---------- */
+    function openGallery(cat, proj) {
+      const images = proj.images || listDefaultImages(cat.folder, proj.folder);
+      currentPhotos = images.map(img => "projects/" + cat.folder + "/" + proj.folder + "/" + img);
+      currentIndex = 0;
+
+      document.getElementById("galleryTitle").textContent = proj.name;
+      showPhoto();
+      document.getElementById("galleryOverlay").classList.add("active");
+    }
+
+    /* Display the current photo and update the counter */
+    function showPhoto() {
+      document.getElementById("galleryImg").src = currentPhotos[currentIndex];
+      document.getElementById("galleryCounter").textContent =
+        (currentIndex + 1) + " / " + currentPhotos.length;
+    }
+
+    /* If no explicit images array in the JSON, return an empty fallback.
+       (The JSON should list images; this is a safety net.) */
+    function listDefaultImages(catFolder, projFolder) {
+      return [];
+    }
+
+    /* ---------- Navigation ---------- */
+    document.getElementById("prevPhoto").addEventListener("click", () => {
+      if (currentPhotos.length === 0) return;
+      currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+      showPhoto();
+    });
+
+    document.getElementById("nextPhoto").addEventListener("click", () => {
+      if (currentPhotos.length === 0) return;
+      currentIndex = (currentIndex + 1) % currentPhotos.length;
+      showPhoto();
+    });
+
+    /* Keyboard navigation: left/right arrows, Escape to close */
+    document.addEventListener("keydown", (e) => {
+      if (document.getElementById("galleryOverlay").classList.contains("active")) {
+        if (e.key === "ArrowLeft") document.getElementById("prevPhoto").click();
+        if (e.key === "ArrowRight") document.getElementById("nextPhoto").click();
+        if (e.key === "Escape") closeGallery();
+      } else if (document.getElementById("categoryOverlay").classList.contains("active")) {
+        if (e.key === "Escape") closeCategoryOverlay();
+      }
+    });
+
+    /* ---------- Close buttons ---------- */
+    document.getElementById("closeCategoryOverlay").addEventListener("click", closeCategoryOverlay);
+    document.getElementById("closeGalleryOverlay").addEventListener("click", closeGallery);
+    document.getElementById("backToCategory").addEventListener("click", () => {
+      document.getElementById("galleryOverlay").classList.remove("active");
+    });
+
+    function closeCategoryOverlay() {
+      document.getElementById("categoryOverlay").classList.remove("active");
+    }
+
+    function closeGallery() {
+      document.getElementById("galleryOverlay").classList.remove("active");
+      document.getElementById("categoryOverlay").classList.remove("active");
+    }
+  </script>
 </body>
-
 </html>
