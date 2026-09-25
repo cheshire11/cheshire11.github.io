@@ -4,8 +4,9 @@
     "folder": "handbags",
     "cover": "cover.jpg",
     "projects": [
-      { "name": "Handbag", "folder": "handbag_2024", "images": ["handbag_2024.jpg"] },
-      { "name": "Butterfly Handbag", "folder": "butterflybag", "images": ["PXL_20251214_174604896.MP.jpg","PXL_20251214_174615383.MP.jpg","PXL_20251214_175005310.MP.jpg", "PXL_20251214_175031207.MP.jpg", "PXL_20251214_175556854.jpg"] }
+      { "name": "Bucket Crossbody", "folder": "handbag_2024", "images": ["handbag_2024.jpg", "DSC_9273.JPG"] },
+      { "name": "Butterfly Handbag", "folder": "butterflybag", "images": ["PXL_20251214_174604896.MP.jpg", "PXL_20251214_174615383.MP.jpg", "PXL_20251214_175005310.MP.jpg", "PXL_20251214_175031207.MP.jpg", "PXL_20251214_175339386.MP.jpg", "PXL_20251214_175556854.jpg"] },
+      { "name": "Other Bags", "folder": "otherbags", "images": ["PXL_20241225_163131155.MP.jpg", "PXL_20241225_163601397.MP.jpg"] }
     ]
   },
   {
@@ -13,7 +14,9 @@
     "folder": "home_goods",
     "cover": "cover.jpg",
     "projects": [
-      { "name": "Triceratops", "folder": "triceratops", "images": ["triceratops.jpg"] }
+      { "name": "Triceratops", "folder": "triceratops", "images": ["triceratops.jpg"] },
+      { "name": "Treasure Box", "folder": "treasurebox", "images": ["PXL_20241225_163953461.MP.jpg", "PXL_20241225_164142587.MP.jpg"] },
+      { "name": "Valet Tray", "folder": "valettray", "images": ["PXL_20241225_160954623.MP.jpg", "PXL_20241225_161029513.MP.jpg"] }
     ]
   },
   {
@@ -21,7 +24,10 @@
     "folder": "personal_items",
     "cover": "cover.jpg",
     "projects": [
-      { "name": "Red Belt", "folder": "red_belt", "images": ["red_belt_2024.jpg"] }
+      { "name": "Red Belt", "folder": "red_belt", "images": ["red_belt_2024.jpg"] },
+      { "name": "Bifold Wallet", "folder": "bifoldwallet", "images": ["PXL_20241225_161620451.MP.jpg", "PXL_20241225_161701484.MP.jpg"] },
+      { "name": "Dragonscale Card Wallet", "folder": "dragonscale_cardwallet", "images": ["PXL_20240824_201038707.MP.jpg", "PXL_20240824_201043175.MP.jpg"] },
+      { "name": "Passport Wallet", "folder": "passportwallet", "images": ["PXL_20241225_162226015.MP.jpg", "PXL_20241225_162410277.MP.jpg"] }
     ]
   }
 ]
