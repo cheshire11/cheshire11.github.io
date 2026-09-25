@@ -16,7 +16,7 @@
     "projects": [
       { "name": "Triceratops", "folder": "triceratops", "images": ["triceratops.jpg"] },
       { "name": "Treasure Box", "folder": "treasurebox", "images": ["PXL_20241225_163953461.MP.jpg", "PXL_20241225_164142587.MP.jpg"] },
-      { "name": "Valet Tray", "folder": "valettray", "images": ["PXL_20241225_160954623.MP.jpg", "PXL_20241225_161029513.MP.jpg"] }
+      { "name": "Dice Tray", "folder": "valettray", "images": ["PXL_20241225_160954623.MP.jpg", "PXL_20241225_161029513.MP.jpg"] }
     ]
   },
   {
