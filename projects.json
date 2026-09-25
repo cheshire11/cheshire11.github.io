@@ -4,7 +4,7 @@
     "folder": "handbags",
     "cover": "cover.jpg",
     "projects": [
-      { "name": "Handbag", "folder": "handbag_2024", "images": ["handbag_2024.jpg"] }
+      { "name": "Handbag", "folder": "handbag_2024", "images": ["handbag_2024.jpg"] },
       { "name": "Butterfly Handbag", "folder": "butterflybag", "images": ["PXL_20251214_175005310.MP.jpg", "PXL_20251214_175031207.MP.jpg", "PXL_20251214_175556854.jpg"] }
     ]
   },
